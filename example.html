@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Roles API Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background: #0070f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #0051cc;
+        }
+        
+        button.secondary {
+            background: #666;
+        }
+        
+        button.secondary:hover {
+            background: #444;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .error {
+            background: #fee;
+            color: #c00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .stats {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stat strong {
+            color: #333;
+            font-size: 24px;
+            display: block;
+        }
+        
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .role-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .role-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .role-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+        }
+        
+        .role-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .role-type {
+            font-size: 12px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        
+        .role-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-inactive {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .role-date {
+            font-size: 13px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        
+        .team-members {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .team-label {
+            font-size: 13px;
+            color: #666;
+            margin-right: 5px;
+        }
+        
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .avatar:not(:first-child) {
+            margin-left: -8px;
+        }
+        
+        .more-count {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            margin-left: -8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👥 User Roles Management</h1>
+        <p class="subtitle">REST API Demo - Fetching data from Node.js backend</p>
+        
+        <div class="controls">
+            <button onclick="fetchAllRoles()">All Roles</button>
+            <button onclick="fetchByStatus('active')" class="secondary">Active Only</button>
+            <button onclick="fetchByStatus('pending')" class="secondary">Pending Only</button>
+            <button onclick="fetchByType('default')" class="secondary">Default Type</button>
+            <button onclick="fetchByType('custom')" class="secondary">Custom Type</button>
+        </div>
+        
+        <div id="stats" style="display: none;" class="stats">
+            <div class="stat">
+                <strong id="totalCount">0</strong>
+                Total Roles
+            </div>
+            <div class="stat">
+                <strong id="activeCount">0</strong>
+                Active
+            </div>
+            <div class="stat">
+                <strong id="pendingCount">0</strong>
+                Pending
+            </div>
+        </div>
+        
+        <div id="error" style="display: none;" class="error"></div>
+        <div id="loading" class="loading">Click a button to load roles...</div>
+        <div id="roles" class="roles-grid"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        
+        async function fetchAllRoles() {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE}/roles`);
+                const data = await response.json();
+                displayRoles(data.data, data.total);
+            } catch (error) {
+                showError('Failed to fetch roles. Make sure the server is running on port 3000.');
+            }
+        }
+        
+        async function fetchByStatus(status) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE}/roles/status/${status}`);
+                const data = await response.json();
+                displayRoles(data.data, data.total);
+            } catch (error) {
+                showError(`Failed to fetch ${status} roles.`);
+            }
+        }
+        
+        async function fetchByType(type) {
+            showLoading();
+            try {
+                const response = await fetch(`${API_BASE}/roles/type/${type}`);
+                const data = await response.json();
+                displayRoles(data.data, data.total);
+            } catch (error) {
+                showError(`Failed to fetch ${type} type roles.`);
+            }
+        }
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('roles').innerHTML = '';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('stats').style.display = 'none';
+        }
+        
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').textContent = message;
+            document.getElementById('error').style.display = 'block';
+        }
+        
+        function displayRoles(roles, total) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+            
+            // Update stats
+            const activeCount = roles.filter(r => r.status === 'Active').length;
+            const pendingCount = roles.filter(r => r.status === 'Pending').length;
+            document.getElementById('totalCount').textContent = total;
+            document.getElementById('activeCount').textContent = activeCount;
+            document.getElementById('pendingCount').textContent = pendingCount;
+            document.getElementById('stats').style.display = 'flex';
+            
+            // Display roles
+            const rolesContainer = document.getElementById('roles');
+            rolesContainer.innerHTML = roles.map(role => `
+                <div class="role-card">
+                    <div class="role-header">
+                        <div>
+                            <div class="role-name">${role.name}</div>
+                            <div class="role-type">${role.type}</div>
+                        </div>
+                        <span class="role-status status-${role.status.toLowerCase()}">${role.status}</span>
+                    </div>
+                    <div class="role-date">Created: ${role.dateCreated}</div>
+                    <div class="team-members">
+                        <span class="team-label">Team:</span>
+                        ${role.teamMembers.slice(0, 4).map(member => 
+                            `<img src="${member.avatar}" alt="${member.name}" class="avatar" title="${member.name}">`
+                        ).join('')}
+                        ${role.teamMembers.length > 4 ? 
+                            `<div class="more-count">+${role.teamMembers.length - 4}</div>` : ''
+                        }
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Auto-load all roles on page load
+        fetchAllRoles();
+    </script>
+</body>
+</html>

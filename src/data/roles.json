@@ -1,0 +1,190 @@
+[
+  {
+    "id": "1",
+    "name": "Supervisors",
+    "type": "DEFAULT",
+    "dateCreated": "Jan 1, 2023",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "1",
+        "name": "User 1",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "2",
+        "name": "User 2",
+        "avatar": "/static/Avatar2.jpg"
+      },
+      {
+        "id": "3",
+        "name": "User 3",
+        "avatar": "/static/Avatar3.jpg"
+      },
+      {
+        "id": "4",
+        "name": "User 4",
+        "avatar": "/static/Avatar4.jpg"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Moderators",
+    "type": "DEFAULT",
+    "dateCreated": "Feb 1, 2023",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "5",
+        "name": "User 5",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "6",
+        "name": "User 6",
+        "avatar": "/static/Avatar2.jpg"
+      },
+      {
+        "id": "7",
+        "name": "User 7",
+        "avatar": "/static/Avatar3.jpg"
+      },
+      {
+        "id": "8",
+        "name": "User 8",
+        "avatar": "/static/Avatar4.jpg"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Supporters",
+    "type": "DEFAULT",
+    "dateCreated": "Feb 1, 2023",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "9",
+        "name": "User 9",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "10",
+        "name": "User 10",
+        "avatar": "/static/Avatar2.jpg"
+      },
+      {
+        "id": "11",
+        "name": "User 11",
+        "avatar": "/static/Avatar3.jpg"
+      },
+      {
+        "id": "12",
+        "name": "User 12",
+        "avatar": "/static/Avatar4.jpg"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Lead personnel",
+    "type": "CUSTOM",
+    "dateCreated": "Mar 1, 2023",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "13",
+        "name": "User 13",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "14",
+        "name": "User 14",
+        "avatar": "/static/Avatar2.jpg"
+      },
+      {
+        "id": "15",
+        "name": "User 15",
+        "avatar": "/static/Avatar3.jpg"
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Deputy sales personnel",
+    "type": "CUSTOM",
+    "dateCreated": "Apr 1, 2023",
+    "status": "Pending",
+    "teamMembers": [
+      {
+        "id": "16",
+        "name": "User 16",
+        "avatar": "/static/Avatar4.jpg"
+      },
+      {
+        "id": "17",
+        "name": "User 17",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "18",
+        "name": "User 18",
+        "avatar": "/static/Avatar2.jpg"
+      },
+      {
+        "id": "19",
+        "name": "User 19",
+        "avatar": "/static/Avatar3.jpg"
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Developments",
+    "type": "SYSTEM_CUSTOM",
+    "dateCreated": "May 1, 2023",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "20",
+        "name": "User 20",
+        "avatar": "/static/Avatar4.jpg"
+      },
+      {
+        "id": "21",
+        "name": "User 21",
+        "avatar": "/static/Avatar1.jpg"
+      },
+      {
+        "id": "22",
+        "name": "User 22",
+        "avatar": "/static/Avatar2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "Developer-basic",
+    "type": "SYSTEM_CUSTOM",
+    "dateCreated": "Jan 1, 2024",
+    "status": "Active",
+    "teamMembers": [
+      {
+        "id": "23",
+        "name": "User 23",
+        "avatar": "/static/Avatar3.jpg"
+      },
+      {
+        "id": "24",
+        "name": "User 24",
+        "avatar": "/static/Avatar4.jpg"
+      },
+      {
+        "id": "25",
+        "name": "User 25",
+        "avatar": "/static/Avatar1.jpg"
+      }
+    ]
+  }
+]
