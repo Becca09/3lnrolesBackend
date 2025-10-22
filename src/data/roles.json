@@ -5,6 +5,7 @@
     "type": "DEFAULT",
     "dateCreated": "Jan 1, 2023",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "1",
@@ -64,6 +65,7 @@
     "type": "DEFAULT",
     "dateCreated": "Feb 1, 2023",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "5",
@@ -113,6 +115,7 @@
     "type": "DEFAULT",
     "dateCreated": "Feb 1, 2023",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "9",
@@ -147,6 +150,7 @@
     "type": "CUSTOM",
     "dateCreated": "Mar 1, 2023",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "13",
@@ -190,6 +194,7 @@
     "type": "SYSTEM_CUSTOM",
     "dateCreated": "May 1, 2023",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "20",
@@ -239,6 +244,7 @@
     "type": "SYSTEM_CUSTOM",
     "dateCreated": "Jan 1, 2024",
     "status": "Active",
+    "lastActive": "06/2023",
     "teamMembers": [
       {
         "id": "23",
