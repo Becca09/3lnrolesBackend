@@ -6,6 +6,7 @@ import path from 'path';
 const app = express();
 
 // Middleware
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 

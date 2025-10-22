@@ -4,11 +4,34 @@ import type { RolesResponse } from './rolesModels.js';
 
 const rolesService = new RolesService();
 
+function toAbsoluteUrl(req: Request, urlPath: string): string {
+  if (urlPath.startsWith('http://') || urlPath.startsWith('https://')) return urlPath;
+  const host = req.get('host');
+  const protocol = req.protocol;
+  return `${protocol}://${host}${urlPath}`;
+}
+
+function mapAvatarsAbsolute<T extends { teamMembers?: Array<{ avatar?: string }> }>(
+  req: Request,
+  item: T
+): T {
+  if (!item?.teamMembers) return item;
+  item.teamMembers = item.teamMembers.map(tm => {
+    const mapped: { [k: string]: unknown } = { ...tm };
+    if (tm.avatar) {
+      // Only set avatar if present to satisfy exactOptionalPropertyTypes
+      (mapped as { avatar: string }).avatar = toAbsoluteUrl(req, tm.avatar);
+    }
+    return mapped as typeof tm;
+  });
+  return item;
+}
+
 export class RolesController {
   // GET /api/roles - Get all roles
   getAllRoles(req: Request, res: Response): void {
     try {
-      const roles = rolesService.getAllRoles();
+      const roles = rolesService.getAllRoles().map(r => mapAvatarsAbsolute(req, { ...r }));
       const response: RolesResponse = {
         success: true,
         data: roles,
@@ -47,7 +70,7 @@ export class RolesController {
 
       res.status(200).json({
         success: true,
-        data: role
+        data: mapAvatarsAbsolute(req, { ...role })
       });
     } catch (error) {
       res.status(500).json({
@@ -69,7 +92,7 @@ export class RolesController {
         });
         return;
       }
-      const roles = rolesService.getRolesByStatus(status);
+      const roles = rolesService.getRolesByStatus(status).map(r => mapAvatarsAbsolute(req, { ...r }));
       
       const response: RolesResponse = {
         success: true,
@@ -97,7 +120,7 @@ export class RolesController {
         });
         return;
       }
-      const roles = rolesService.getRolesByType(type);
+      const roles = rolesService.getRolesByType(type).map(r => mapAvatarsAbsolute(req, { ...r }));
       
       const response: RolesResponse = {
         success: true,
